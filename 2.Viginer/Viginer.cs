@@ -21,7 +21,12 @@ namespace _2.Viginer
             key = GetKey(FirstKey, Clear.Length);
 
             for (int i = 0; i < Clear.Length; i++)
-                cipher += alphabet[(alphabet.IndexOf(Clear[i]) + alphabet.IndexOf(key[i])) % alphabet.Length];
+            {
+                if (alphabet.IndexOf(Clear[i]) == -1)
+                    cipher += Clear[i];
+                else
+                    cipher += alphabet[(alphabet.IndexOf(Clear[i]) + alphabet.IndexOf(key[i])) % alphabet.Length];
+            }
             
 
             return cipher;
@@ -35,7 +40,10 @@ namespace _2.Viginer
             key = GetKey(FirstKey, cipher.Length);
             for (int i = 0; i < cipher.Length; i++)
             {
-                text += alphabet[(alphabet.IndexOf(cipher[i]) - alphabet.IndexOf(key[i]) + alphabet.Length) % alphabet.Length];
+                if (alphabet.IndexOf(cipher[i]) == -1)
+                    text += cipher[i];
+                else
+                    text += alphabet[(alphabet.IndexOf(cipher[i]) - alphabet.IndexOf(key[i]) + alphabet.Length) % alphabet.Length];
             }
             return text;
         }

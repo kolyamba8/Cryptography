@@ -19,7 +19,10 @@ namespace _1.Caesar
             string cipher = "";
             for (int i = 0; i < text.Length; i++)
             {
-                cipher += alphabet[(alphabet.IndexOf(text[i]) + position) % alphabet.Length].ToString();
+				if (alphabet.IndexOf(text[i]) == -1)
+                    cipher += text[i];
+                else
+					cipher += alphabet[(alphabet.IndexOf(text[i]) + position) % alphabet.Length].ToString();
             }
             return cipher;
         }
@@ -30,15 +33,19 @@ namespace _1.Caesar
             string text = "";
             for (int i = 0; i < cipher.Length; i++)
             {
-                if (alphabet.IndexOf(cipher[i]) - position < 0)
-                {
-                    text += alphabet[alphabet.Length - 1 +
-                            (alphabet.IndexOf(cipher[i]) - position + 1) % alphabet.Length];
-                }
+				if (alphabet.IndexOf(cipher[i]) == -1)
+                    text += cipher[i];
                 else
-                {
-                    text += alphabet[(alphabet.IndexOf(cipher[i]) - position) % alphabet.Length];
-                }
+				{
+					if (alphabet.IndexOf(cipher[i]) - position < 0)
+					{
+						text += alphabet[alphabet.Length - 1 +(alphabet.IndexOf(cipher[i]) - position + 1) % alphabet.Length];
+					}
+					else
+					{
+						text += alphabet[(alphabet.IndexOf(cipher[i]) - position) % alphabet.Length];
+					}
+				}
             }
             return text;
         }
